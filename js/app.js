@@ -10,9 +10,9 @@ const manito = document.getElementById('manito')
 const pTotal = document.getElementById('pTotal')
 const opciones = document.getElementById("filtroTipo")
 const vaciarContenedorProductosParaFiltrar = document.getElementById("contenedor-productos")
-const btnGuardar = document.getElementById("btnGuardar");
-const btnGuardarContenedor = document.getElementById("btnGuardarContenedor");
 const btnSugerencia = document.getElementById("btnSugerencia");
+
+
 
 
 //Declaro el "carrito" y el contador de los elementos agregados
@@ -316,25 +316,49 @@ class Puntos{
 }
 }
 
+// Empiezo con lo de guardar puntajes en el Local
 
 
+const btnGuardar = document.getElementById("btnGuardar");
+const btnGuardarContenedor = document.getElementById("btnGuardarContenedor");
+const btnOkGuardar = document.getElementById("btnOkGuardar");
+const pFecha = document.getElementById("pFecha");
+const ingresarFecha = document.getElementById("ingresarFecha");
 
 
+let flagGuardar = true;
 btnGuardar.addEventListener("click", ()=>{
     const ahora = new Date();
     const fecha = ahora.toLocaleString();
+    
 
-    const divGuardar = document.createElement('div')
-    divGuardar.className = ('divGuardar')
-    divGuardar.innerHTML = `
-    <p class="pGuardar"> FECHA DEL DIA QUE SE HICIERON ESOS PUNTOS : </p>
-    <input type="text"  id="ingresarFecha" placeholder="DD/MM/AAA">
-    <button id="btnOkGuardar" class="btnOkGuardar btn btn-secondary">OK</button>
+    if(flagGuardar){
+        const divGuardar = document.createElement('div')
+        divGuardar.className = ('divGuardar')
+        divGuardar.innerHTML = `
+        <p class="pGuardar" id="pFecha"> FECHA DEL DIA QUE SE HICIERON ESOS PUNTOS : </p>
+        <form id="form">
+        <input type="text"  id="ingresarFecha" placeholder="DD/MM/AAA">
+        <input type="submit"  id="btnOkGuardar" class="btnOkGuardar btn btn-secondary" value="OK">
+        <form/>
+        `
+        btnGuardarContenedor.appendChild(divGuardar)   
+        flagGuardar=false;  
+    }
 
-    `
-    btnGuardarContenedor.appendChild(divGuardar)                          
+    let form = document.getElementById("form");
+    form.addEventListener("submit", enviarDatos);
+    let puntajeAGuardar =  (carrito.reduce((acc, prod) => acc + prod.cantidad * prod.valor, 0)).toFixed(2)
 
+function enviarDatos (e){
+    e.preventDefault()
+    let fechaTrabajoGuardar = e.target
+    console.log(fechaTrabajoGuardar.children[0].value)
+    console.log(fecha)
+    console.log(puntajeAGuardar)
+}
 
-
-    // puntajeGuardado.push(new Puntos ())
 })
+
+
+// constructor(fechaTrabajo, fechaGuardado, puntos, total, excedente){

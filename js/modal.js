@@ -18,3 +18,11 @@ contenedorModal.addEventListener('click', (event) =>{
 modalCarrito.addEventListener('click', (event) => {
     event.stopPropagation() 
 })
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+// const btnOkGuardarr = document.getElementById("btnOkGuardar")
+
+// btnOkGuardarr.addEventListener('click', ()=>{
+//     btnGuardarContenedor.classList.toggle('modal-active')
+// })
